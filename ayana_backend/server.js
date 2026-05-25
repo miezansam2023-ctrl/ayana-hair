@@ -28,7 +28,7 @@ db.connect((err) => {
 
 // Test
 app.get('/', (req, res) => {
-  res.json({ message: '🌸 Ayana Hair API fonctionne !' });
+  res.json({ message: 'Ayana Hair API fonctionne !' });
 });
 
 // INSCRIPTION
@@ -286,7 +286,6 @@ app.delete('/api/panier/vider/:utilisateur_id', (req, res) => {
     });
 });
 
-// ⚠️ IMPORTANT : details AVANT :utilisateur_id
 // COMMANDE - Détails d'une commande
 app.get('/api/commandes/details/:commande_id', (req, res) => {
   db.query(
@@ -360,5 +359,5 @@ app.put('/api/notifications/tout-lire/:utilisateur_id', (req, res) => {
 
 // Démarrage serveur
 app.listen(3000, () => {
-  console.log('🚀 Serveur Ayana Hair démarré sur http://localhost:3000');
+  console.log('Serveur Ayana Hair démarré sur http://localhost:3000');
 });

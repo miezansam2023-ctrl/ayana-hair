@@ -16,9 +16,9 @@ class PanierManager extends ChangeNotifier {
     (sum, p) => sum + (double.tryParse(p['prix'].toString()) ?? 0),
   );
 
-  // Appelé après connexion
+  // Définir l'utilisateur et charger le panier
   Future<void> setUtilisateur(int id) async {
-    print('👤 setUtilisateur appelé avec id: $id');
+    print(' setUtilisateur appelé avec id: $id');
     _utilisateurId = id;
     await chargerPanier();
   }
@@ -32,7 +32,7 @@ class PanierManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Ajouter
+  // Ajouter un article
   Future<void> ajouterArticle(Map<String, dynamic> produit) async {
     print('🛒 ajouterArticle appelé');
     print('🛒 _utilisateurId = $_utilisateurId');
@@ -55,7 +55,7 @@ class PanierManager extends ChangeNotifier {
     }
   }
 
-  // Vider
+  // Vider le panier
   Future<void> vider() async {
     _articles.clear();
     notifyListeners();

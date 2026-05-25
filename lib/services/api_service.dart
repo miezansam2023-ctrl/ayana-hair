@@ -217,15 +217,14 @@ class ApiService {
   }
 
   // PANIER - Ajouter
-  // PANIER - Ajouter
   static Future<void> ajouterAuPanier(
     Map<String, dynamic> article,
     int utilisateurId,
   ) async {
     try {
       final token = await getToken();
-      print('📦 Ajout panier → utilisateur_id: $utilisateurId');
-      print('📦 Article: $article');
+      print('Ajout panier → utilisateur_id: $utilisateurId');
+      print('Article: $article');
 
       final response = await http.post(
         Uri.parse('$baseUrl/panier'),
@@ -241,7 +240,7 @@ class ApiService {
           'image': article['image'],
         }),
       );
-      print('📦 Réponse serveur: ${response.statusCode} → ${response.body}');
+      print(' Réponse serveur: ${response.statusCode} → ${response.body}');
     } catch (e) {
       print('❌ Erreur ajout panier: $e');
     }
@@ -347,6 +346,7 @@ class ApiService {
     }
   }
 
+  // NOTIFICATIONS - Marquer comme lue
   static Future<void> marquerNotificationLue(int id) async {
     try {
       final token = await getToken();
@@ -362,6 +362,7 @@ class ApiService {
     }
   }
 
+  // NOTIFICATIONS - Tout marquer comme lu
   static Future<void> toutMarquerLu(int utilisateurId) async {
     try {
       final token = await getToken();

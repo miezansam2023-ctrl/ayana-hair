@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   child: Image.network(
                     'https://res.cloudinary.com/dwwjln5xo/image/upload/v1779583247/fond_dia2mn.png',
-                    fit: BoxFit.cover,
+                    fit: BoxFit.cover, 
                     errorBuilder: (_, __, ___) =>
                         Container(color: const Color(0xFF1A1A1A)),
                   ),
