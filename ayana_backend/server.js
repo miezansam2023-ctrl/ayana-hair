@@ -57,7 +57,7 @@ app.post('/api/connexion', (req, res) => {
     if (!valide)
       return res.status(401).json({ erreur: 'Email ou mot de passe incorrect' });
     const token = jwt.sign({ id: user.id, role: user.role }, 'ayana_secret', { expiresIn: '24h' });
-    res.json({ token, role: user.role, nom: user.nom, id: user.id });
+    res.json({ token, role: user.role, nom: user.nom, id: user.id, type_cheveux: user.type_cheveux });
   });
 });
 

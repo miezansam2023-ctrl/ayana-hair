@@ -12,6 +12,7 @@ class ApiService {
     String nom,
     String email,
     int id,
+    String typeCheveux,
   ) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
@@ -19,6 +20,7 @@ class ApiService {
     await prefs.setString('nom', nom);
     await prefs.setString('email', email);
     await prefs.setInt('id', id);
+    await prefs.setString('type_cheveux', typeCheveux);
   }
 
   static Future<int?> getId() async {
@@ -41,7 +43,12 @@ class ApiService {
   // Supprimer le token (déconnexion)
   static Future<void> supprimerToken() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    await prefs.remove('token');
+    await prefs.remove('role');
+    await prefs.remove('nom');
+    await prefs.remove('email');
+    await prefs.remove('id');
+    await prefs.remove('type_cheveux');
   }
 
   // CONNEXION
@@ -63,6 +70,7 @@ class ApiService {
           data['nom'],
           email,
           data['id'] ?? 0,
+          data['type_cheveux'] ?? '',
         );
       }
       return data;
@@ -188,6 +196,7 @@ class ApiService {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('nom', nom);
       await prefs.setString('email', email);
+      await prefs.setString('type_cheveux', typeCheveux);
       return jsonDecode(response.body);
     } catch (e) {
       return {'erreur': 'Impossible de modifier le profil'};

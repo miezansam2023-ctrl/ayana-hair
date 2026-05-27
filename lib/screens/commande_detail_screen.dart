@@ -37,12 +37,14 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
     switch (statut) {
       case 'confirmee':
         return const Color(0xFFC9A84C);
-
+      case 'en_livraison':
+        return Colors.orange;
       case 'livree':
         return Colors.green;
-
+      case 'annulee':
+        return Colors.red;
       default:
-        return Colors.orange;
+        return Colors.grey;
     }
   }
 
@@ -50,10 +52,12 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
     switch (statut) {
       case 'confirmee':
         return 'Confirmée';
-
+      case 'en_livraison':
+        return 'En livraison';
       case 'livree':
         return 'Livrée';
-
+      case 'annulee':
+        return 'Annulée';
       default:
         return 'En attente';
     }
@@ -590,20 +594,21 @@ class _CommandeDetailScreenState extends State<CommandeDetailScreen> {
         'done': true,
         'icon': Icons.receipt_outlined,
       },
-
       {
         'label': 'Confirmée',
-        'done': statut == 'confirmee' || statut == 'livree',
-
+        'done':
+            statut == 'confirmee' ||
+            statut == 'en_livraison' ||
+            statut == 'livree',
         'icon': Icons.check_circle_outline,
       },
-
       {
         'label': 'En livraison',
-        'done': statut == 'livree',
+        'done':
+            statut == 'en_livraison' ||
+            statut == 'livree', // 
         'icon': Icons.local_shipping_outlined,
       },
-
       {
         'label': 'Livrée',
         'done': statut == 'livree',

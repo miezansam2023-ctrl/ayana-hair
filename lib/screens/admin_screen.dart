@@ -456,6 +456,40 @@ class _AdminScreenState extends State<AdminScreen>
     );
   }
 
+  String _getLabelPaiement(String mode) {
+    switch (mode) {
+      case 'orange_money':
+        return 'Orange Money';
+      case 'mtn_money':
+        return 'MTN Mobile Money';
+      case 'wave':
+        return 'Wave';
+      case 'moov_money':
+        return 'Moov Money';
+      case 'livraison':
+        return 'Paiement à la livraison';
+      default:
+        return mode;
+    }
+  }
+
+  Color _getCouleurPaiement(String mode) {
+    switch (mode) {
+      case 'orange_money':
+        return const Color(0xFFFF6600);
+      case 'mtn_money':
+        return const Color(0xFFFFCC00);
+      case 'wave':
+        return const Color(0xFF1BA6E0);
+      case 'moov_money':
+        return const Color(0xFF0066CC);
+      case 'livraison':
+        return const Color(0xFFC9A84C);
+      default:
+        return Colors.white54;
+    }
+  }
+
   Widget _buildCommandeCard(Map<String, dynamic> c, {bool compact = false}) {
     final statut = c['statut'] ?? 'en_attente';
     final date = DateTime.tryParse(c['created_at'] ?? '') ?? DateTime.now();
@@ -489,12 +523,18 @@ class _AdminScreenState extends State<AdminScreen>
                     const SizedBox(height: 2),
                     Text(
                       c['client_nom'] ?? 'Client',
-                      style: const TextStyle(color: Colors.white54, fontSize: 12),
+                      style: const TextStyle(
+                        color: Colors.white54,
+                        fontSize: 12,
+                      ),
                     ),
                     if (c['type_cheveux'] != null)
                       Container(
                         margin: const EdgeInsets.only(top: 3),
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 2,
+                        ),
                         decoration: BoxDecoration(
                           color: violet.withOpacity(0.15),
                           borderRadius: BorderRadius.circular(10),
@@ -502,9 +542,48 @@ class _AdminScreenState extends State<AdminScreen>
                         ),
                         child: Text(
                           '✂️ ${c['type_cheveux']}',
-                          style: const TextStyle(color: Color(0xFF6B2D5E), fontSize: 10),
+                          style: const TextStyle(
+                            color: Color(0xFF6B2D5E),
+                            fontSize: 10,
+                          ),
                         ),
                       ),
+                    if (c['mode_paiement'] != null &&
+                        c['mode_paiement'] != '') ...[
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          c['mode_paiement'] == 'livraison'
+                              ? Icon(
+                                  Icons.delivery_dining,
+                                  color: const Color(0xFFC9A84C),
+                                  size: 16,
+                                )
+                              : Image.asset(
+                                  _getImagePaiement(c['mode_paiement']),
+                                  width: 20,
+                                  height: 20,
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (_, __, ___) => Icon(
+                                    Icons.payment,
+                                    color: _getCouleurPaiement(
+                                      c['mode_paiement'],
+                                    ),
+                                    size: 16,
+                                  ),
+                                ),
+                          const SizedBox(width: 6),
+                          Text(
+                            _getLabelPaiement(c['mode_paiement']),
+                            style: TextStyle(
+                              color: _getCouleurPaiement(c['mode_paiement']),
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                     Text(
                       '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year} ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}',
                       style: const TextStyle(
@@ -758,6 +837,21 @@ class _AdminScreenState extends State<AdminScreen>
         ],
       ),
     );
+  }
+
+  String _getImagePaiement(String mode) {
+    switch (mode) {
+      case 'orange_money':
+        return 'assets/images/orange_money.png';
+      case 'mtn_money':
+        return 'assets/images/mtn_money.png';
+      case 'wave':
+        return 'assets/images/wave.png';
+      case 'moov_money':
+        return 'assets/images/moov_money.png';
+      default:
+        return '';
+    }
   }
 
   void _confirmDeconnexion() {
